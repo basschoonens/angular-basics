@@ -1,12 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, signal} from '@angular/core';
+import { PostComponent } from './post/post.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  // template: '<p>Hello World!</p>',
+  standalone: true,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [PostComponent],
+  // styles: [''],
 })
+
 export class AppComponent {
-  title = 'angular-basics';
+  name = signal('Bas');
+  imageURL = signal(
+  'https://picsum.photos/id/237/500/500'
+  );
+
+
+  getName(): string {
+    return this.name();
+  }
+
+  changeImage(e: KeyboardEvent) {
+    this.imageURL.set((e.target as HTMLInputElement).value);
+  }
+
+  logImage(e: string) {
+    console.log(e)
+  }
 }
